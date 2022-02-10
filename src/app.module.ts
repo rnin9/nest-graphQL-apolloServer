@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import * as config from 'config';
+import { GraphQLModule } from '@nestjs/graphql';
 
 const dbConfig = config.get('db');
 @Module({
@@ -17,6 +18,9 @@ const dbConfig = config.get('db');
       database: dbConfig.get('database'),
       entities: ['dist/**/entity/*.entity.{ts,js}'],
       synchronize: dbConfig.get('synchronize'),
+    }),
+    GraphQLModule.forRoot({
+      autoSchemaFile: true,
     }),
     UsersModule,
   ],

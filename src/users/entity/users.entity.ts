@@ -1,24 +1,30 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
+@ObjectType()
 @Entity()
-class User {
-  @PrimaryGeneratedColumn() id: number;
+export class User {
+  @Field(() => Int)
+  @PrimaryColumn()
+  id: number;
 
-  @Column({ type: 'text' })
+  @Field(() => String)
+  @Column()
+  name: string;
+
+  @Field(() => String)
+  @Column()
   email: string;
 
-  @Column({ type: 'boolean', default: false })
-  verifiedEmail: boolean;
+  @Field(() => String, { nullable: true })
+  @Column()
+  gender?: 'male' | 'female';
 
-  @Column({ type: 'text' })
-  firstName: string;
+  @Field(() => String)
+  @Column()
+  address: string;
 
-  @Column({ type: 'text' })
-  lastName: string;
-
-  @Column({ type: 'int' })
-  age: number;
+  @Field(() => Boolean)
+  @Column()
+  isVIP: boolean;
 }
-
-export default User;
