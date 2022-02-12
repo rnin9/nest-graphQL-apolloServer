@@ -10,12 +10,11 @@ export class UsersService {
     @InjectRepository(User) private readonly usersRepository: Repository<User>,
   ) {}
   async saveUser(createUserDto: CreateUserDto) {
-    try {
-      await this.usersRepository.save(createUserDto);
-      const user = this.usersRepository.findOne({ id: createUserDto.id });
-      return user;
-    } catch (err) {
-      throw new HttpException('user Saving Error', 401);
+    const user = await this.usersRepository.findOne({ id: createUserDto.id });
+    if (user) {
+      throw new HttpException('user Duplicate Error', 401);
+    } else {
+      return await this.usersRepository.save(createUserDto);
     }
   }
 }

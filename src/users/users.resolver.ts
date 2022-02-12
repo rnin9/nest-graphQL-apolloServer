@@ -16,10 +16,9 @@ export class UsersResolver {
   @Mutation(() => User)
   async createUser(@Args() createUserDto: CreateUserDto): Promise<User> {
     try {
-      const user = await this.usersService.saveUser(createUserDto);
-      return user;
+      return await this.usersService.saveUser(createUserDto);
     } catch (err) {
-      throw new HttpException('error', 401);
+      throw new HttpException(err.response, err.status);
     }
   }
 }
