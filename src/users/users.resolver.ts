@@ -13,6 +13,7 @@ export class UsersResolver {
     return bool;
   }
 
+  //User create Logic
   @Mutation(() => User)
   async createUser(@Args() createUserDto: CreateUserDto): Promise<User> {
     try {

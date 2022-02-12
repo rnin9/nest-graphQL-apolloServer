@@ -9,8 +9,11 @@ export class UsersService {
   constructor(
     @InjectRepository(User) private readonly usersRepository: Repository<User>,
   ) {}
-  async saveUser(createUserDto: CreateUserDto) {
+
+  //user Create On DB
+  async saveUser(createUserDto: CreateUserDto): Promise<User> {
     const user = await this.usersRepository.findOne({ id: createUserDto.id });
+    //duplicate check logic
     if (user) {
       throw new HttpException('user Duplicate Error', 401);
     } else {
