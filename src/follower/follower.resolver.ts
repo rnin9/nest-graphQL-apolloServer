@@ -1,5 +1,5 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import { CreateFollowerDto } from './dto/create-follower-dto';
+import { Args, Mutation, ResolveField, Resolver } from '@nestjs/graphql';
+import { CreateFollowerDto } from './dto/create-follower.dto';
 import { Follower } from './entity/follower.entity';
 import { FollowerService } from './follower.service';
 

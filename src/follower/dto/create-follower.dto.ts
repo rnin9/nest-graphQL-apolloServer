@@ -4,6 +4,6 @@ import { Follower } from '../entity/follower.entity';
 @InputType()
 export class CreateFollowerDto extends OmitType(
   Follower,
-  ['followAt'],
+  ['followAt', 'followUser'],
   InputType,
 ) {}

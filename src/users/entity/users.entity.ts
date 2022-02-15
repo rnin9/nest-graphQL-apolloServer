@@ -1,5 +1,6 @@
 import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Follower } from 'src/follower/entity/follower.entity';
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
 
 enum Gender {
   male = 'male',
@@ -34,4 +35,8 @@ export class User {
   @Field(() => Boolean)
   @Column()
   isVIP: boolean;
+
+  @OneToMany(() => Follower, (follower) => follower.followUser)
+  @Field(() => [Follower])
+  follower?: Follower[];
 }

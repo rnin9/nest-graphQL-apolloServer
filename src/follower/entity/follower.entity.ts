@@ -1,5 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { User } from 'src/users/entity/users.entity';
+import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
 
 @ObjectType()
 @Entity()
@@ -10,9 +11,12 @@ export class Follower {
 
   @Field(() => Int)
   @PrimaryColumn()
-  isFollow: number;
+  followId: number;
 
   @Field()
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   followAt: Date;
+
+  @ManyToOne(() => User, (user) => user.follower)
+  followUser: User;
 }

@@ -7,5 +7,6 @@ import { FollowerService } from './follower.service';
 @Module({
   imports: [TypeOrmModule.forFeature([Follower])],
   providers: [FollowerResolver, FollowerService],
+  exports: [FollowerService],
 })
 export class FollowerModule {}
