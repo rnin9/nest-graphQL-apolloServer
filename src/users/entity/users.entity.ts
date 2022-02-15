@@ -37,6 +37,6 @@ export class User {
   isVIP: boolean;
 
   @OneToMany(() => Follower, (follower) => follower.followUser)
-  @Field(() => [Follower])
-  follower?: Follower[];
+  @Field(() => [User])
+  follower?: User[];
 }

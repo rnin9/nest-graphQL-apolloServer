@@ -68,6 +68,6 @@ export class UsersResolver {
   @ResolveField()
   async follower(@Parent() user: User): Promise<Follower[]> {
     const { id } = user;
-    return this.followerService.getById(id);
+    return await this.followerService.getById(id);
   }
 }
