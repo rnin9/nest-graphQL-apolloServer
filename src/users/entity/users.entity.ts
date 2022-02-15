@@ -1,7 +1,7 @@
 import { Field, InputType, Int, ObjectType } from '@nestjs/graphql';
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 
-@InputType({ isAbstract: true })
+// @InputType({ isAbstract: true })
 @ObjectType()
 @Entity()
 export class User {
