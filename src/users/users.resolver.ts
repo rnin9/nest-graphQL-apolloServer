@@ -1,5 +1,5 @@
 import { HttpException } from '@nestjs/common';
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entity/users.entity';
@@ -10,7 +10,7 @@ export class UsersResolver {
   constructor(private usersService: UsersService) {}
 
   @Query(() => User)
-  async getUser(@Args('id') id: number): Promise<User> {
+  async getUser(@Args('id', { type: () => Int }) id: number): Promise<User> {
     try {
       return await this.usersService.getUser(id);
     } catch (err) {
@@ -33,7 +33,7 @@ export class UsersResolver {
   //User update Logic
   @Mutation(() => User)
   async updateUser(
-    @Args('id') id: number,
+    @Args('id', { type: () => Int }) id: number,
     @Args('updateInput') userData: UpdateUserDto,
   ): Promise<User> {
     try {
@@ -44,7 +44,7 @@ export class UsersResolver {
   }
 
   @Mutation(() => User)
-  async deleteUser(@Args('id') id: number): Promise<User> {
+  async deleteUser(@Args('id', { type: () => Int }) id: number): Promise<User> {
     try {
       return await this.usersService.deleteUser(id);
     } catch (err) {

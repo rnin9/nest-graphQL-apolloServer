@@ -1,7 +1,19 @@
-import { Field, InputType, Int, ObjectType } from '@nestjs/graphql';
+import {
+  Field,
+  InputType,
+  Int,
+  ObjectType,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 
-@InputType({ isAbstract: true })
+enum Gender {
+  male = 'male',
+  female = 'female',
+}
+//To determine a GraphQL output type for the "gender"
+registerEnumType(Gender, { name: 'Gender' });
+// @InputType({ isAbstract: true })
 @ObjectType()
 @Entity()
 export class User {
@@ -17,9 +29,9 @@ export class User {
   @Column()
   email: string;
 
-  @Field(() => String, { nullable: true })
-  @Column()
-  gender?: 'male' | 'female';
+  @Field(() => Gender, { nullable: true })
+  @Column({ type: 'enum', enum: Gender })
+  gender?: Gender;
 
   @Field(() => String)
   @Column()

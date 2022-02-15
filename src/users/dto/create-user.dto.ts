@@ -3,4 +3,4 @@ import { User } from '../entity/users.entity';
 
 // data transfer object(DTO), send value by Object type
 @InputType()
-export class CreateUserDto extends PartialType(User) {}
+export class CreateUserDto extends PartialType(User, InputType) {}
