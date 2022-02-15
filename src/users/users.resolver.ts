@@ -1,5 +1,15 @@
 import { HttpException } from '@nestjs/common';
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Int,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
+import { Follower } from 'src/follower/entity/follower.entity';
+import { FollowerService } from 'src/follower/follower.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entity/users.entity';
@@ -7,7 +17,10 @@ import { UsersService } from './users.service';
 
 @Resolver(() => User)
 export class UsersResolver {
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private usersService: UsersService,
+    private followerService: FollowerService,
+  ) {}
 
   @Query(() => User)
   async getUser(@Args('id', { type: () => Int }) id: number): Promise<User> {
@@ -50,5 +63,11 @@ export class UsersResolver {
     } catch (err) {
       throw new HttpException(err.response, err.status);
     }
+  }
+
+  @ResolveField()
+  async follower(@Parent() user: User): Promise<Follower[]> {
+    const { id } = user;
+    return await this.followerService.getById(id);
   }
 }

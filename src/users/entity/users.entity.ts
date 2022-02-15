@@ -1,11 +1,6 @@
-import {
-  Field,
-  InputType,
-  Int,
-  ObjectType,
-  registerEnumType,
-} from '@nestjs/graphql';
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { Follower } from 'src/follower/entity/follower.entity';
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
 
 enum Gender {
   male = 'male',
@@ -13,7 +8,7 @@ enum Gender {
 }
 //To determine a GraphQL output type for the "gender"
 registerEnumType(Gender, { name: 'Gender' });
-// @InputType({ isAbstract: true })
+
 @ObjectType()
 @Entity()
 export class User {
@@ -40,4 +35,8 @@ export class User {
   @Field(() => Boolean)
   @Column()
   isVIP: boolean;
+
+  @OneToMany(() => Follower, (follower) => follower.followUser)
+  @Field(() => [User])
+  follower?: User[];
 }

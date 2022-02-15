@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import * as config from 'config';
 import { GraphQLModule } from '@nestjs/graphql';
+import { FollowerModule } from './follower/follower.module';
 
 const dbConfig = config.get('db');
 @Module({
@@ -16,6 +17,7 @@ const dbConfig = config.get('db');
       username: dbConfig.get('username'),
       password: dbConfig.get('password'),
       database: dbConfig.get('database'),
+      logging: true,
       entities: ['dist/**/entity/*.entity.{ts,js}'],
       synchronize: dbConfig.get('synchronize'),
     }),
@@ -23,6 +25,7 @@ const dbConfig = config.get('db');
       autoSchemaFile: true,
     }),
     UsersModule,
+    FollowerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
