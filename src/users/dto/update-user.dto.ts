@@ -1,5 +1,5 @@
-import { ArgsType, OmitType } from '@nestjs/graphql';
+import { InputType, OmitType } from '@nestjs/graphql';
 import { User } from '../entity/users.entity';
 
-@ArgsType()
+@InputType()
 export class UpdateUserDto extends OmitType(User, ['id']) {}

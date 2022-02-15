@@ -20,7 +20,9 @@ export class UsersResolver {
 
   //User create Logic
   @Mutation(() => User)
-  async createUser(@Args('input') createUserDto: CreateUserDto): Promise<User> {
+  async createUser(
+    @Args('createInput') createUserDto: CreateUserDto,
+  ): Promise<User> {
     try {
       return await this.usersService.saveUser({ ...createUserDto });
     } catch (err) {
@@ -32,10 +34,10 @@ export class UsersResolver {
   @Mutation(() => User)
   async updateUser(
     @Args('id') id: number,
-    @Args('input') userData: UpdateUserDto,
+    @Args('updateInput') userData: UpdateUserDto,
   ): Promise<User> {
     try {
-      return await this.usersService.updateUser(id, userData);
+      return await this.usersService.updateUser(id, { ...userData });
     } catch (err) {
       throw new HttpException(err.response, err.status);
     }
