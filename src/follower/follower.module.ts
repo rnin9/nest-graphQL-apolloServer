@@ -1,0 +1,11 @@
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Follower } from './entity/follower.entity';
+import { FollowerResolver } from './follower.resolver';
+import { FollowerService } from './follower.service';
+
+@Module({
+  imports: [TypeOrmModule.forFeature([Follower])],
+  providers: [FollowerResolver, FollowerService],
+})
+export class FollowerModule {}

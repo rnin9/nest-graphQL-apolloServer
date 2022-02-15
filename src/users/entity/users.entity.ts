@@ -1,10 +1,4 @@
-import {
-  Field,
-  InputType,
-  Int,
-  ObjectType,
-  registerEnumType,
-} from '@nestjs/graphql';
+import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 enum Gender {
@@ -13,7 +7,7 @@ enum Gender {
 }
 //To determine a GraphQL output type for the "gender"
 registerEnumType(Gender, { name: 'Gender' });
-// @InputType({ isAbstract: true })
+
 @ObjectType()
 @Entity()
 export class User {
