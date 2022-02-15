@@ -22,6 +22,7 @@ export class UsersService {
     }
   }
 
+  //get User Data from ID
   async getUser(id: number): Promise<User> {
     const user = await this.usersRepository.findOne({ id: id });
     if (user) {
@@ -31,6 +32,7 @@ export class UsersService {
     }
   }
 
+  //update User by ID, update DTO
   async updateUser(id: number, userData: UpdateUserDto): Promise<User> {
     const user = await this.usersRepository.findOne({ id: id });
     if (user) {
@@ -41,6 +43,7 @@ export class UsersService {
     }
   }
 
+  //delete User data by ID
   async deleteUser(id: number): Promise<User> {
     const user = await this.usersRepository.findOne({ id: id });
     if (!user) {
